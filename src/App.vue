@@ -1,32 +1,53 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="nav" class="container">
+      <div class="row">
+        <div class="col">
+          <!-- Nav tabs -->
+          <ul class="nav nav-pills" id="navId">
+            <li class="nav-item">
+              <router-link to="/" class="nav-link">Home</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/about" class="nav-link">Account</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/about" class="nav-link">Contact</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/about" class="nav-link">Case</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/about" class="nav-link">Contract</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/about" class="nav-link">Knowledge</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/about" class="nav-link">CPQ</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/about" class="nav-link">Chatter</router-link>
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div
+              class="tab-pane fade show active"
+              id="tab1Id"
+              role="tabpanel"
+            ></div>
+            <div class="tab-pane fade" id="tab2Id" role="tabpanel"></div>
+            <div class="tab-pane fade" id="tab3Id" role="tabpanel"></div>
+            <div class="tab-pane fade" id="tab4Id" role="tabpanel"></div>
+            <div class="tab-pane fade" id="tab5Id" role="tabpanel"></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <router-view />
+    <router-view class="container pt-5" />
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+<style></style>
