@@ -35,8 +35,8 @@
 let jsforce = require("jsforce");
 let conn = new jsforce.Connection();
 // const accountName = "Testing";
-const email = "jrenzel66@protonmail.com";
-const passAndToken = "Hishem1993!lbvUE196ou7lzwOm8TO6qsDB";
+const email = process.env.USERNAME;
+const passAndToken = process.env.PASSWORD + process.env.SECURITY_TOKEN;
 
 conn.login(email, passAndToken, function(err, res) {
   if (err) {

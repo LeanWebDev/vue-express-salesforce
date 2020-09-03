@@ -26,8 +26,8 @@ const port = 3000;
 
 var conn = new jsforce.Connection();
 conn.login(
-  "jrenzel66@protonmail.com",
-  "Hishem1993!lbvUE196ou7lzwOm8TO6qsDB",
+  process.env.USERNAME,
+  process.env.PASSWORD + process.env.SECURITY_TOKEN,
   function(err, res) {
     if (err) {
       return console.error(err);
@@ -60,8 +60,8 @@ app.get("/home", function(req, res) {
   var conn = new jsforce.Connection();
   let records = [];
   conn.login(
-    "jrenzel66@protonmail.com",
-    "Hishem1993!lbvUE196ou7lzwOm8TO6qsDB",
+    process.env.USERNAME,
+    process.env.PASSWORD + process.env.SECURITY_TOKEN,
     function(err, res) {
       if (err) {
         return console.error(err);
