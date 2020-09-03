@@ -13,16 +13,88 @@ const jsforce = require("jsforce");
 
 // JSForce
 
-var oauth2 = new jsforce.OAuth2({
-  // you can change loginUrl to connect to sandbox or prerelease env.
-  // loginUrl : 'https://test.salesforce.com',
-  clientId: "<your Salesforce OAuth2 client ID is here>",
-  clientSecret: "<your Salesforce OAuth2 client secret is here>",
-  redirectUri: "<callback URI is here>",
-});
+// var oauth2 = new jsforce.OAuth2({
+//   // you can change loginUrl to connect to sandbox or prerelease env.
+//   // loginUrl : 'https://test.salesforce.com',
+//   clientId: "<your Salesforce OAuth2 client ID is here>",
+//   clientSecret: "<your Salesforce OAuth2 client secret is here>",
+//   redirectUri: "<callback URI is here>",
+// });
 // Express config
 const app = express();
 const port = 3000;
+
+var conn = new jsforce.Connection();
+conn.login(
+  "jrenzel66@protonmail.com",
+  "Hishem1993!lbvUE196ou7lzwOm8TO6qsDB",
+  function(err, res) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log(conn.res);
+    console.log(conn.accessToken);
+    console.log(conn.instanceUrl);
+    conn.query("SELECT Id, Subject FROM Case", function(err, res) {
+      if (err) {
+        return console.error(err);
+      }
+      console.log(res);
+    });
+    // var records = [];
+    conn.query("SELECT Id, Subject FROM Case", function(err, result) {
+      if (err) {
+        return console.error(err);
+      }
+      console.log("total : " + result.totalSize);
+      console.log("fetched : " + result.records.length);
+      console.log(result);
+    });
+    console.log(res);
+  }
+);
+
+//////////////// Routes
+
+app.get("/home", function(req, res) {
+  var conn = new jsforce.Connection();
+  let records = [];
+  conn.login(
+    "jrenzel66@protonmail.com",
+    "Hishem1993!lbvUE196ou7lzwOm8TO6qsDB",
+    function(err, res) {
+      if (err) {
+        return console.error(err);
+      }
+      console.log(conn.res);
+      console.log(conn.accessToken);
+      console.log(conn.instanceUrl);
+      conn.query("SELECT Id, Name FROM Account", function(err, res) {
+        if (err) {
+          return console.error(err);
+        }
+        console.log(res);
+      });
+      var query = conn
+        .query("SELECT Id, Name FROM Account")
+        .on("record", function(record) {
+          records.push(record);
+        })
+        .on("end", function() {
+          console.log("total in database : " + query.totalSize);
+          console.log("total fetched : " + query.totalFetched);
+        })
+        .on("error", function(err) {
+          console.error(err);
+        })
+        .run({ autoFetch: true, maxFetch: 4000 });
+      console.log(res);
+    }
+  );
+  res.json(records);
+});
+
+////////////// OAuth2.0 flow
 
 //
 // Get authorization url and redirect to it.
