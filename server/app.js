@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const createError = require("http-errors");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
@@ -10,7 +12,7 @@ const jsforce = require("jsforce");
 const path = require("path");
 const session = require("express-session");
 const bodyParser = require("body-parser");
-
+const cors = require("cors");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 
@@ -22,6 +24,9 @@ app.use(session({ secret: "S3CRE7", resave: true, saveUninitialized: true }));
 //bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// cors
+app.use(cors());
 
 //jsForce connection
 const oauth2 = new jsforce.OAuth2({

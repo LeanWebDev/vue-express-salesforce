@@ -1,33 +1,20 @@
 // Environment
-console.log("No value for FOO yet:", process.env.FOO);
-
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
-console.log("Now the value for FOO is:", process.env.FOO);
+require("dotenv").config();
 
 // Dependencies
 const express = require("express");
 const jsforce = require("jsforce");
 
-// JSForce
-
-// var oauth2 = new jsforce.OAuth2({
-//   // you can change loginUrl to connect to sandbox or prerelease env.
-//   // loginUrl : 'https://test.salesforce.com',
-//   clientId: "<your Salesforce OAuth2 client ID is here>",
-//   clientSecret: "<your Salesforce OAuth2 client secret is here>",
-//   redirectUri: "<callback URI is here>",
-// });
 // Express config
 const app = express();
 const port = 3000;
 
+// Initial test
+
 var conn = new jsforce.Connection();
 conn.login(
-  process.env.USERNAME,
-  process.env.PASSWORD + process.env.SECURITY_TOKEN,
+  process.env.SF_USERNAME,
+  process.env.SF_PASSWORD + process.env.SF_SECURITY_TOKEN,
   function(err, res) {
     if (err) {
       return console.error(err);

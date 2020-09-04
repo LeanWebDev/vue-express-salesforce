@@ -7,8 +7,12 @@ node_modules
 .env.local
 .env.*.local
 env/*
-*/env
+*/.env
 .env
+backend/.env
+
+# backend files
+/backend/.env
 
 # Log files
 npm-debug.log*
@@ -24,3 +28,5 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+backend/.env
