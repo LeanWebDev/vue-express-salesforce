@@ -15,7 +15,7 @@
               <router-link to="/about" class="nav-link">Contact</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link">Case</router-link>
+              <router-link to="/case" class="nav-link">Case</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/about" class="nav-link">Contract</router-link>

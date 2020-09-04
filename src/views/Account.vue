@@ -1,78 +1,72 @@
 <template>
   <div class="about">
-    <div class="row text-center mb-5">
+    <div class="row text-center mb-3">
       <div class="col">
         <h1>The Account Object</h1>
         <hr />
       </div>
     </div>
-    <section id="" class="row my-3">
-      <div class="card col">
-        <div class="card-body">
-          <h6>Section 1</h6>
-          Details
-        </div>
-      </div>
-      <div class="card col">
-        <div class="card-body">
-          <pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;
-&lt;p&gt;And another line of sample text here...&lt;/p&gt;
-</code></pre>
-        </div>
-      </div>
-    </section>
-    <section id="" class="row my-3">
-      <div class="card col">
-        <div class="card-body">
-          <h6>Section 1</h6>
-          Details
+
+    <section id="" class="row mb-3">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <button v-if="errored" class="btn btn-danger">ERROR!!</button>
+            <h5>All Accounts list</h5>
+          </div>
+          <div class="card-body">
+            <!-- TODO: Turn this into a modal which pass the current account id and then this queries -->
+
+            <div class="list-group">
+              <!-- <router-link
+                v-for="(account, index) in accounts"
+                :key="index"
+                tag="a"
+                :to="'account/query/' + account.Id"
+                class="list-group-item list-group-item-action"
+                >{{ account.Name }}</router-link
+              > -->
+              <a
+                v-for="(account, index) in accounts"
+                :key="index"
+                @click="getSingleAccount(account.Id)"
+                class="list-group-item list-group-item-action"
+              >
+                {{ account.Name }}
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </div>
 </template>
 <script>
-let jsforce = require("jsforce");
-let conn = new jsforce.Connection();
-// const accountName = "Testing";
-const email = process.env.USERNAME;
-const passAndToken = process.env.PASSWORD + process.env.SECURITY_TOKEN;
-
-conn.login(email, passAndToken, function(err, res) {
-  if (err) {
-    return console.error(err);
-  }
-  console.log(res);
-  conn
-    .sobject("Account")
-    .retrieve("0014K000004X8MNQA0", function(err, account) {
-      if (err) {
-        return console.error(err);
-      }
-      console.log(account);
-      // ...
-    });
-});
-
 export default {
+  name: "AccountPage",
   data() {
     return {
-      conn: {},
-      accountName: "Testing",
+      accounts: [],
+      errored: false,
     };
   },
+  mounted() {
+    this.getAccounts();
+  },
   methods: {
-    get1() {
-      this.conn.query("SELECT Id, Subject FROM Case", function(err, res) {
-        if (err) {
-          return console.error(err);
-        }
-        console.log(res.records[0]);
-      });
+    getAccounts() {
+      this.axios
+        .get("http://localhost:3000/account/query/all")
+        .then((response) => (this.accounts = response.data))
+        .catch((error) => {
+          console.log(error);
+          this.errored = true;
+        });
+    },
+    getSingleAccount(accountId) {
+      alert(accountId);
     },
   },
-  mounted() {},
 };
 </script>
-
 <style></style>

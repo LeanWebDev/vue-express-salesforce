@@ -4,11 +4,16 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import axios from "axios";
+import VueAxios from "vue-axios";
 
 // bootstrap
 import { BootstrapVue } from "bootstrap-vue";
 // Install BootstrapVue
 Vue.use(BootstrapVue);
+
+// Axios
+Vue.use(VueAxios, axios);
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";

@@ -34,16 +34,22 @@
           <hr />
           <b-list-group>
             <b-list-group-item variant="primary">
-              Email: jrenzel66@protonmail.com
+              Username: {{ username }}
             </b-list-group-item>
             <b-list-group-item variant="primary">
-              Email: jrenzel66@protonmail.com
+              Password: {{ password }}
             </b-list-group-item>
             <b-list-group-item variant="primary">
-              Email: jrenzel66@protonmail.com
+              Security Token: {{ security_token }}
             </b-list-group-item>
             <b-list-group-item variant="primary">
-              Email: jrenzel66@protonmail.com
+              Org URL: {{ orgUrl }}
+            </b-list-group-item>
+            <b-list-group-item variant="primary">
+              Org ID: {{ orgId }}
+            </b-list-group-item>
+            <b-list-group-item variant="primary">
+              User ID: {{ userId }}
             </b-list-group-item>
           </b-list-group>
         </b-alert>
@@ -58,5 +64,23 @@
 export default {
   name: "Home",
   components: {},
+  data() {
+    return {
+      username: "",
+      password: "",
+      security_token: "",
+      orgUrl: "",
+      orgId: "",
+      userId: "",
+    };
+  },
+  mounted() {
+    this.username = process.env.VUE_APP_SF_USERNAME;
+    this.password = process.env.VUE_APP_SF_PASSWORD;
+    this.security_token = process.env.VUE_APP_SF_SECURITY_TOKEN;
+    this.orgUrl = process.env.VUE_APP_SF_URL;
+    this.userId = process.env.VUE_APP_SF_USER_ID;
+    this.orgId = process.env.VUE_APP_SF_ORD_ID;
+  },
 };
 </script>
