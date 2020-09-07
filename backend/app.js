@@ -40,7 +40,7 @@ conn.login(
 
 // Account -> all
 
-app.get("/account/query/all", function(req, res) {
+app.get("/account/all", function(req, res) {
   let records = [];
   let q = "SELECT Id, Name FROM Account";
   // Connection login setup
@@ -79,7 +79,7 @@ app.get("/account/query/all", function(req, res) {
 
 // Account -> single (getAccountInfo)
 
-app.get("/account/query/:id", function(req, res) {
+app.get("/account/:id", function(req, res) {
   let accountId = req.params.id;
   console.log(accountId);
   let account = {};
@@ -107,33 +107,250 @@ app.get("/account/query/:id", function(req, res) {
           console.log(account);
           res.send(account);
         });
+
       /* End query logic */
     }
   );
 });
 
-// Contact
+//////////// Contact /////////////
 
-// Cases
+// Contact -> all
 
-//get case info for selected case
-// app.get('/api/getCaseInfo', function(req, res){
-//      if (!req.session.accessToken || !req.session.instanceUrl) { res.redirect('/'); }
+app.get("/contact/all", function(req, res) {
+  let records = [];
+  let q = "SELECT Id, Name FROM Contact";
+  // Connection login setup
+  conn.login(
+    process.env.SF_USERNAME,
+    process.env.SF_PASSWORD + process.env.SF_SECURITY_TOKEN,
+    function(loginErr, loginResult) {
+      if (loginErr) {
+        return console.error(loginErr);
+      }
+      console.log("Contact -> all");
 
-//     //instantiate connection
-//     let conn = new jsforce.Connection({
-//         oauth2 : {oauth2},
-//         accessToken: req.session.accessToken,
-//         instanceUrl: req.session.instanceUrl
-//    });
+      /* Start query logic */
 
-//    var c = conn.sobject("Case").retrieve("500410000011nue", function(err, account) {
-//        if (err) { return console.error(err); }
-//        console.log("Name : " + account.Name);
-//        // ...
-//      });
-//      console.log(c)
-// });
+      let query = conn
+        .query(q)
+        .on("record", function(record) {
+          // console.log(record);
+          records.push(record);
+          // console.log(records);
+        })
+        .on("end", function() {
+          console.log("total in database : " + query.totalSize);
+          console.log("total fetched : " + query.totalFetched);
+          console.log(records);
+          res.json(records);
+        })
+        .on("error", function(err) {
+          console.error(err);
+        })
+        .run({ autoFetch: true, maxFetch: 4000 }); // synonym of Query#execute();
+
+      /* End query logic */
+    }
+  );
+});
+
+// Contact -> single (getContactDetail)
+
+app.get("/contact/:id", function(req, res) {
+  let contactId = req.params.id;
+  console.log(contactId);
+  let contact = {};
+  let q = "SELECT Id, Name FROM Contact";
+  // Connection login setup
+  conn.login(
+    process.env.SF_USERNAME,
+    process.env.SF_PASSWORD + process.env.SF_SECURITY_TOKEN,
+    function(loginErr, loginResult) {
+      if (loginErr) {
+        return console.error(loginErr);
+      }
+      console.log("Contact -> single(:id)");
+
+      /* Start query logic */
+
+      let query = conn
+        .sobject("Contact")
+        .retrieve(contactId, function(queryError, queryResult) {
+          if (queryError) {
+            return console.error(queryError);
+          }
+          console.log("Name : " + queryResult.Name);
+          contact = queryResult;
+          console.log(contact);
+          res.send(contact);
+        });
+
+      /* End query logic */
+    }
+  );
+});
+
+//////////// Case /////////////
+
+// Case -> all
+
+app.get("/case/all", function(req, res) {
+  let records = [];
+  let q = "SELECT Id, Subject, Type, CaseNumber, Description FROM Case";
+  // Connection login setup
+  conn.login(
+    process.env.SF_USERNAME,
+    process.env.SF_PASSWORD + process.env.SF_SECURITY_TOKEN,
+    function(loginErr, loginResult) {
+      if (loginErr) {
+        return console.error(loginErr);
+      }
+      console.log("Case -> all");
+
+      /* Start query logic */
+
+      let query = conn
+        .query(q)
+        .on("record", function(record) {
+          // console.log(record);
+          records.push(record);
+          // console.log(records);
+        })
+        .on("end", function() {
+          console.log("total in database : " + query.totalSize);
+          console.log("total fetched : " + query.totalFetched);
+          res.json(records);
+        })
+        .on("error", function(err) {
+          console.error(err);
+        })
+        .run({ autoFetch: true, maxFetch: 4000 }); // synonym of Query#execute();
+
+      /* End query logic */
+    }
+  );
+});
+
+// Case -> single (getCaseDetail)
+
+app.get("/case/:id", function(req, res) {
+  let caseId = req.params.id;
+  console.log(caseId);
+  let caseting = {};
+  // Connection login setup
+  conn.login(
+    process.env.SF_USERNAME,
+    process.env.SF_PASSWORD + process.env.SF_SECURITY_TOKEN,
+    function(loginErr, loginResult) {
+      if (loginErr) {
+        return console.error(loginErr);
+      }
+      console.log("Case -> single(:id)");
+
+      /* Start query logic */
+
+      let query = conn
+        .sobject("Case")
+        .retrieve(caseId, function(queryError, queryResult) {
+          if (queryError) {
+            return console.error(queryError);
+          }
+          console.log("Name : " + queryResult.Subject);
+          caseting = queryResult;
+          console.log(caseting);
+          res.send(caseting);
+        });
+
+      /* End query logic */
+    }
+  );
+});
+
+//////////// EmailMessage /////////////
+
+// EmailMessage -> all
+
+app.get("/email-message/all", function(req, res) {
+  let records = [];
+  let q =
+    "SELECT Status, Subject, TextBody, MessageDate, ParentId FROM EmailMessage";
+  // Connection login setup
+  conn.login(
+    process.env.SF_USERNAME,
+    process.env.SF_PASSWORD + process.env.SF_SECURITY_TOKEN,
+    function(loginErr, loginResult) {
+      if (loginErr) {
+        return console.error(loginErr);
+      }
+      console.log("EmailMessage -> all");
+
+      /* Start query logic */
+
+      let query = conn
+        .query(q)
+        .on("record", function(record) {
+          // console.log(record);
+          records.push(record);
+          // console.log(records);
+        })
+        .on("end", function() {
+          console.log("total in database : " + query.totalSize);
+          console.log("total fetched : " + query.totalFetched);
+          res.json(records);
+        })
+        .on("error", function(err) {
+          console.error(err);
+        })
+        .run({ autoFetch: true, maxFetch: 4000 }); // synonym of Query#execute();
+
+      /* End query logic */
+    }
+  );
+});
+
+// EmalMessage -> all(related to a case)
+
+app.get("/email-message/related/:caseId", function(req, res) {
+  let records = [];
+  let caseId = req.params.caseId;
+  console.log(`THIS IS THE CASE ID TO QUERY WITH!!!! ${caseId}`);
+  let q = `SELECT Status, Subject, TextBody, MessageDate, ParentId FROM EmailMessage WHERE ParentId = '${caseId}'`;
+  // Connection login setup
+  conn.login(
+    process.env.SF_USERNAME,
+    process.env.SF_PASSWORD + process.env.SF_SECURITY_TOKEN,
+    function(loginErr, loginResult) {
+      if (loginErr) {
+        return console.error(loginErr);
+      }
+      console.log("Related EmailMessage -> all(:caseId");
+
+      /* Start query logic */
+
+      let query = conn
+        .query(q)
+        .on("record", function(record) {
+          // console.log(record);
+          records.push(record);
+          // console.log(records);
+        })
+        .on("end", function() {
+          console.log("total in database : " + query.totalSize);
+          console.log("total fetched : " + query.totalFetched);
+          res.json(records);
+        })
+        .on("error", function(err) {
+          console.error(err);
+        })
+        .run({ autoFetch: true, maxFetch: 4000 }); // synonym of Query#execute();
+
+      /* End query logic */
+    }
+  );
+});
+
+////////////////////////////////////////// OLD
 
 app.get("/home", function(req, res) {
   var conn = new jsforce.Connection();

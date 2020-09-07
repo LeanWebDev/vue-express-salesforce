@@ -24,6 +24,16 @@ const routes = [
     name: "Case",
     component: () => import("../views/Case.vue"),
   },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: () => import("../views/Contact.vue"),
+  },
+  {
+    path: "/email-message",
+    name: "EmailMessage",
+    component: () => import("../views/EmailMessage.vue"),
+  },
 ];
 
 const router = new VueRouter({

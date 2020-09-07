@@ -1,33 +1,69 @@
 <template>
   <div id="app">
-    <div id="nav" class="container">
+    <div
+      id="nav"
+      class="container"
+    >
       <div class="row">
         <div class="col">
           <!-- Nav tabs -->
-          <ul class="nav nav-pills" id="navId">
+          <ul
+            class="nav nav-pills justify-content-center"
+            id="navId"
+          >
             <li class="nav-item">
-              <router-link to="/" class="nav-link">Home</router-link>
+              <router-link
+                to="/"
+                class="nav-link"
+              >Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link">Account</router-link>
+              <router-link
+                to="/about"
+                class="nav-link"
+              >Account</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link">Contact</router-link>
+              <router-link
+                to="/contact"
+                class="nav-link"
+              >Contact</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/case" class="nav-link">Case</router-link>
+              <router-link
+                to="/case"
+                class="nav-link"
+              >Case</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link">Contract</router-link>
+              <router-link
+                to="/email-message"
+                class="nav-link"
+              >EmailMessage</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link">Knowledge</router-link>
+              <router-link
+                to="/about"
+                class="nav-link"
+              >Activity</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link">CPQ</router-link>
+              <router-link
+                to="/about"
+                class="nav-link"
+              >Contract</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link">Chatter</router-link>
+              <router-link
+                to="/about"
+                class="nav-link"
+              >Knowledge</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link
+                to="/about"
+                class="nav-link"
+              >CPQ</router-link>
             </li>
           </ul>
 
@@ -38,10 +74,26 @@
               id="tab1Id"
               role="tabpanel"
             ></div>
-            <div class="tab-pane fade" id="tab2Id" role="tabpanel"></div>
-            <div class="tab-pane fade" id="tab3Id" role="tabpanel"></div>
-            <div class="tab-pane fade" id="tab4Id" role="tabpanel"></div>
-            <div class="tab-pane fade" id="tab5Id" role="tabpanel"></div>
+            <div
+              class="tab-pane fade"
+              id="tab2Id"
+              role="tabpanel"
+            ></div>
+            <div
+              class="tab-pane fade"
+              id="tab3Id"
+              role="tabpanel"
+            ></div>
+            <div
+              class="tab-pane fade"
+              id="tab4Id"
+              role="tabpanel"
+            ></div>
+            <div
+              class="tab-pane fade"
+              id="tab5Id"
+              role="tabpanel"
+            ></div>
           </div>
         </div>
       </div>
